@@ -175,5 +175,104 @@ class Employee{
    - 无法命名构造器。构造器的名字与类名相同。但是这里希望将得到的货币实例和百分比实例有不同的名字。
    - 当使用构造器时，无法改变所构造的对象类型。而Factory方法返回一个DecimalFormat对象，这个是NumberFormat的子类。
 
-5. Java语言总是按值传递的。
+5. 方法参数
 
+   > Java程序设计语言总是按值调用。也就是说，方法得到 的是一个参数值的拷贝，特别是，方法不能修改传递给它任何参数变量的内容。
+
+   ```java
+   package com.seanyang.finalDemo;
+   
+   public class TestParam {
+   
+       public static void main(String[] args) {
+           /**
+            * 方法不能修改基本数据类型的参数
+            */
+           System.out.println("Testing tripleValue:");
+           double percent = 10;
+           System.out.println("Before: percent = " + percent);
+           tripleValue(percent);
+           System.out.println("After: percent = "+ percent);
+           /**
+            * 方法可以改变对象参数的状态
+            */
+           System.out.println("Testing triple salary");
+           Employee  harry = new Employee("harry",50000);
+           System.out.println("Before : salary  =" + harry.getSalary());
+           tripleSalary(harry);
+           System.out.println("After : salary =" + harry.getSalary());
+           /**
+            *一个方法不能让对象参数引用一个新的对象参数
+            */
+           System.out.println("Testing swap");
+           Employee a = new Employee("alice",70000);
+           Employee b = new Employee("bob",60000);
+           System.out.println("Before a = " + a.getName());
+           System.out.println("Before b = " + b.getName());
+           swap(a,b);
+           System.out.println("After: a = "+a.getName());
+           System.out.println("After: b = "+b.getName());
+   
+   
+       }
+   
+       private static void swap(Employee x, Employee y) {
+           Employee temp =x ;
+           x= y;
+           y = temp;
+           System.out.println("end of method : x= "+x.getName());
+           System.out.println("end of method : y= "+y.getName());
+       }
+   
+       private static void tripleSalary(Employee x) {
+           x.raiseSalary(200);
+           System.out.println("end of mehtod : salary" + x.getSalary());
+       }
+   
+       private static void tripleValue(double x) {
+           x = x *3;
+           System.out.println("end of method : percent = " + x);
+       }
+   }
+   
+   class  Employee{
+       private String name;
+       private double salary;
+       public Employee(String name, double salary) {
+           this.name = name;
+           this.salary = salary;
+       }
+       public String getName() {
+           return name;
+       }
+       public double getSalary() {
+           return salary;
+       }
+   
+       public void raiseSalary(double byPercent){
+           double raise = salary * byPercent /100;
+           salary += raise;
+       }
+   }
+   
+   ```
+
+   输出结果为:
+
+   >Testing tripleValue:
+   >Before: percent = 10.0
+   >end of method : percent = 30.0
+   >After: percent = 10.0
+   >Testing triple salary
+   >Before : salary  =50000.0
+   >end of mehtod : salary150000.0
+   >After : salary =150000.0
+   >Testing swap
+   >Before a = alice
+   >Before b = bob
+   >end of method : x= bob
+   >end of method : y= alice
+   >After: a = alice
+   >After: b = bob
+
+6. 
