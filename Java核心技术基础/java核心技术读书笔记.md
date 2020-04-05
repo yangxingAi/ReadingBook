@@ -275,4 +275,48 @@ class Employee{
    >After: a = alice
    >After: b = bob
 
-6. 
+6. 重载
+
+   > 如果多个方法有相同的名字不同的参数，便产生了重载。
+   >
+   > 编译器必须挑选出具体执行哪个方法 ，它通过用各个方法给出的参数类型与特定方法调用所使用的值类型进行匹配来挑选出相应的方法。
+   >
+   > Java允许重载任何方法，不只是构造器方法，因此要完整描述方法需要指出方法名以及参数类型。
+
+7. 良好的编程习惯：显示初始化域。
+
+8. 注意域隐藏问题
+
+   ```java
+   class Employee{
+       private String name;
+       private int age;
+       //参数是name，和成员变量名字相同。
+       public Employee(String name, int age) {
+           name = name;
+           age = age;
+       }
+       public Employee(){}
+   
+       public String getName() {
+           return name;
+       }
+   
+       public int getAge() {
+           return age;
+       }
+   }
+   ```
+
+9. 类设计技巧：
+
+   - 一定要保证数据私有。
+   - 一定要对数据进行初始化。
+   - 不要在类中使用过多的基本类型。
+   - 不是所有的域都需要独立的域访问器和域更改器。
+   - 将职责过多的类进行分解。
+   - 类名和方法名要能体现他们的职责。
+   - 优先使用不可变的类。
+
+## 三、继承
+
