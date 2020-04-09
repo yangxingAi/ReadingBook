@@ -336,4 +336,72 @@ class Employee{
 
 6. 关键字为 private，static，final的方法采用静态绑定。编译器可以准确知道调用哪个方法。 
 
-7. 
+7. 将一个类声明为final，只有其中的方法自动转换成final，而不包括域。
+
+8. 如果方法很简短且被频繁调用，也没有真正被覆盖，那么即时编译器就会将这个方法进行内联处理。
+
+9. 将一个子类引用赋值给超类，编译器是允许的，而将一个超类引用赋值给子类，必须进行强制类型转换。
+
+10. 访问修饰符
+
+   > 仅对本类可见---private
+   >
+   > 对所有类可见---public
+   >
+   > 对本包和所有子类可见---protected
+   >
+   > 对本包可见---（默认）不需要修饰符
+
+11. equals方法
+
+    > Object中的equlas方法用来检测一个对象是否等于另一个对象。在object中这个方法判断两个对象是否具有相同的引用。如果两个对象的引用相同那么他们一定相等。
+    >
+    > 然而对于大多数类来说，这样得判断没有什么意义。
+    >
+    > 下面重写一个equals方法，如果雇员的姓名，工资和工龄相同就认为相等。
+    
+    ```java
+     public boolean equals(Object object){
+            //如果当前对象引用和传入对象引用相等，那这两个对象一定相等。
+            if (this == object) return true;
+            //如果传入对象为null则不相等
+            if (object == null) return false;
+            //如果两个对象类型不一样则肯定不相等，getClass()返回一个对象所属的类
+            if (getClass() != object.getClass()) return false;
+            //执行到这里肯定是一个同类型的非空对象了，那么强制转换
+            Employee employee = (Employee)object;
+         //为了防止name和hireDay都可能为null,如果都是null，object.equals（）会返回true,如果其中一个为null,则返回fasle,如果都不为null，则调用a.equals(b)
+            return Object.equals(name,employee.name)&&
+                salary == employee.salary && Object.equals(hireDay,employee.hireDay);
+     		}
+    ```
+    
+12. 在子类中定义equals方法，首先调用超类的equals。如果检测失败对象就不可能相等。如果超类的域都相等那么比较子类的域。
+
+13. Java要求equals方法具有以下的特性：
+
+    > 1)自反性：对于任何非空引用x, x.equals(x)应该返回true
+    >
+    > 2)对称性：对于任何引用x和y，x.equals(y)返回true那么y.equals(x)也应该返回true
+    >
+    > 3)传递性：对任何应用x,y,z,如果x.equals(y)返回true,y.equals(z)返回true,那么x.equals(z)也应该返回true
+    >
+    > 4)一致性：如果x和y引用的对象没有发生变化，反复调用x.equals(y)应该返回同样的结果。
+    >
+    > 5)对于任何非空引用x, x.equals(null)应该返回false
+
+14. hashcode方法
+
+    > 如果重新定义equals方法就必须重写hashcode方法。如果x.equals(y)返回true,那么x.hashcode()一定等于y.hashcode()
+
+    ```java
+    public int hashcode(){
+        return Object.hash(name,salary,hireDay);
+    }
+    ```
+
+15. toString方法
+
+    > 随处可见toSting方法的原因是：只要一个对象与一个字符串通过操作符"+"连接起来，就会自动调用toString方法，以便获得这个对象的字符串描述。
+
+16. 
