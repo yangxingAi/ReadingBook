@@ -430,7 +430,35 @@ class Employee{
 
 19. 装箱和拆箱是编译器认可的，而不是虚拟机。编译器在生成类的字节码文件中时，插入必要的方法调用。虚拟机只是执行这些字节码。
 
-20. 枚举类型
+20. 反射的功能可以用来：
 
-    > 
+    - 在运行时分析类的能力
+    - 在运行时查看对象，例如编写一个toString方法供所有类使用
+    - 实现通用的数组操作代码
+    - 利用Method对象。
+
+21. Class类
+
+    在程序运行期间，Java运行时系统为所有的对象维护一个被称为运行时的类型标识。这个信息跟踪着每个对象所属的类。虚拟机利用运行时类型信息选择相应的方法执行。
+
+22. 利用反射分析类的能力
+
+    Class类中的`getFileds`,`getMethods`,`getConstructors`方法将分别返回类提供的public域，方法和构造器数组，其中包括超类的公有成员。Class`getDeclareFileds`,`getDeclareMethods`,`getDeclareConstructors`将分别返回类中声明的全部域，方法和构造器，其中包括私有和受保护成员，但不包括超类的成员。
+
+23. 查看对象域
+
+    ```java
+    //创建雇员对象
+    Employee harry =  new Employee("harry hacker",35000,10,1,1989);
+    //获取类信息
+    Class cl= harry.getClass();
+    //获取域对象
+    Filed f = cl.getDeclareFiled("name");
+    //因为name私有
+    f.setAccessible(true);
+    //返回harry里name的值
+    Object v = f.get(harry);
+    ```
+
+24. 使用反射编写泛型数组代码
 
